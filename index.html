@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    
+    <title>Drag_n_drop_Payground</title>
+    
+    <style>
+        div{
+            color: rgb(0, 0, 0);
+            font-family: Tahoma, Verdana, Segoe, sans-serif;
+            
+        }
+        .container{
+            width:100vw;
+            display:flex;
+        }
+        .fixed{
+            background-color:rgb(158, 185, 247);
+            padding: 4px;
+            width: 200px;
+        }
+        .flex-item{
+            background-color:rgb(196, 196, 197);
+            flex-grow: 1;
+        }
+        .buttonPadding{
+            padding:4px 4px 4px 4px;
+            margin:4px 2px 4px 2px;
+            border-radius: 8px;
+            background-color:rgb(196, 196, 197);
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+    </style>
+    
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+        
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+        
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+
+            if (data==="ButtonTextField")
+            {
+                ELEs.push(
+                    new UIElement(1,"1","text","The Label for this piece of input",[],true,
+                    [],true,"","font-size:16px;font-weight:bold","background-color: lavender",[]));
+
+                FG.SetFormDefinitionFromObject(ELEs);
+
+                var foo = window.getComputedStyle(document.getElementById("FormGenBody"), null); // REDRAW
+
+            }
+
+
+
+
+            //ev.target.appendChild(document.getElementById(data));
+        }
+    </script>
+    
+</head>
+<body>
+    <!--  -->
+    
+    <div class='container'>
+        
+        <div id="testbuttons" class='fixed'>
+            <div id="ButtonTextField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Text Field</div>
+            <div id="ButtonNarrativeField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Narrative Field</div>
+            <div id="ButtonDateField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Date Field</div>
+            <div id="ButtonDropDownField" class="buttonPadding" draggable="true" ondragstart="drag(event)">DropDown Field</div>
+            <div id="ButtonCheckBoxField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Check Box Field</div>
+            <div id="ButtonRadioButtonField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Radio Button Field</div>
+            <div id="ButtonHeaderField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Header</div>
+            <div id="ButtonFooterField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Footer</div>
+            <div id="ButtonLabelField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Label</div>
+            <div id="ButtonLabeledListField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Labeled List</div>
+        </div>
+        
+        <div id="FormGenBody" class='flex-item' ondrop="drop(event)" ondragover="allowDrop(event)" >
+            
+        </div>
+        
+    </div>
+    
+    
+    <script>var exports = {};</script>  <!-- Hack to get rid of Exports Error from TSC compile -->
+                                        <!-- This preserves the use of the Typuscript source in -->
+                                        <!-- Angular library form for some users of the code library -->
+    
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+    <script src="FormGenBS.js"></script>
+
+    <script>
+
+        var ELEs = new Array();
+        var FG = new FormGenBS('FormGenBody',ELEs,'Version 1','FG');
+
+        
+
+
+
+        
+
+        
+    </script>
+    
+    
+</body>
+</html>
