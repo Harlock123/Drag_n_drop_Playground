@@ -52,6 +52,8 @@
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
 
+            elementsDropped += 1;
+
             if (data==="ButtonTextField")
             {
 
@@ -64,23 +66,163 @@
                     Rows += 1;
 
                     ELEs.push(
-                    new UIElement(Rows,"1","text","The Label for this piece of input",[],true,
-                    [],true,"","font-size:16px;font-weight:bold","background-color: lavender",[]));
+                    new UIElement(Rows,"ELE_" + elementsDropped,"text","The Label for this piece of input",[],true,
+                    [],true,"","","",[]));
 
 
                 }
                 else
                 {
                     ELEs.push(
-                    new UIElement(rowover,"1","text","The Label for this piece of input",[],true,
-                    [],true,"","font-size:16px;font-weight:bold","background-color: lavender",[]));
+                    new UIElement(rowover,"ELE_" + elementsDropped,"text","The Label for this piece of input",[],true,
+                    [],true,"","","",[]));
                 }
+
                 
-                FG.SetFormDefinitionFromObject(ELEs);
 
                 //var foo = window.getComputedStyle(document.getElementById("FormGenBody"), null); // REDRAW
 
             }
+
+            if (data==="ButtonNarrativeField")
+            {
+
+                var rowover = FG.GetRowAtYCoordinate(ev.clientY);
+
+                if (rowover==0)
+                {
+                    // New Row
+
+                    Rows += 1;
+
+                    ELEs.push(
+                    new UIElement(Rows,"ELE_" + elementsDropped,"narrative","The Label for this narrative",[],true,
+                    [],true,"","","",[]));
+
+
+                }
+                else
+                {
+                    ELEs.push(
+                    new UIElement(rowover,"ELE_" + elementsDropped,"narrative","The Label for this narrative",[],true,
+                    [],true,"","","",[]));
+                }
+
+            }
+
+            if (data==="ButtonDateField")
+            {
+
+                var rowover = FG.GetRowAtYCoordinate(ev.clientY);
+
+                if (rowover==0)
+                {
+                    // New Row
+
+                    Rows += 1;
+
+                    ELEs.push(
+                    new UIElement(Rows,"ELE_" + elementsDropped,"date","The Label Date",[],true,
+                        [],true,"","","",[]));
+
+
+                }
+                else
+                {
+                    ELEs.push(
+                    new UIElement(rowover,"ELE_" + elementsDropped,"date","The Label Date",[],true,
+                        [],true,"","","",[]));
+                }
+
+            }
+
+            if (data==="ButtonDropDownField")
+            {
+
+                var rowover = FG.GetRowAtYCoordinate(ev.clientY);
+
+                if (rowover==0)
+                {
+                    // New Row
+
+                    Rows += 1;
+
+                    ELEs.push(
+                    new UIElement(Rows,"ELE_" + elementsDropped,"dropdown","Select from the dropdown",["1","2","3","4"], true,
+                        [],true,"","","",[]));
+
+                }
+                else
+                {
+                    ELEs.push(
+                    new UIElement(rowover,"ELE_" + elementsDropped,"dropdown","Select from the dropdown",["1","2","3","4"], true,
+                        [],true,"","","",[]));
+                }
+
+            }
+
+            if (data==="ButtonCheckBoxField")
+            {
+
+                var rowover = FG.GetRowAtYCoordinate(ev.clientY);
+
+                if (rowover==0)
+                {
+                    // New Row
+
+                    Rows += 1;
+
+                    ELEs.push(
+                    new UIElement(Rows,"ELE_" + elementsDropped,"checkbox","Select from the checkboxes",["Option 1","Option 2","Option 3","Option 4"], true,
+                        [],true,"","","",[]));
+
+                }
+                else
+                {
+                    ELEs.push(
+                    new UIElement(rowover,"ELE_" + elementsDropped,"checkbox","Select from the checkboxes",["Option 1","Option 2","Option 3","Option 4"], true,
+                        [],true,"","","",[]));
+                }
+
+            }
+
+            if (data==="ButtonRadioButtonField")
+            {
+
+                var rowover = FG.GetRowAtYCoordinate(ev.clientY);
+
+                if (rowover==0)
+                {
+                    // New Row
+
+                    Rows += 1;
+
+                    ELEs.push(
+                    new UIElement(Rows,"ELE_" + elementsDropped,"radio","Select from the radiobuttons",["Option 1","Option 2","Option 3","Option 4"], true,
+                        [],true,"","","",[]));
+
+                }
+                else
+                {
+                    ELEs.push(
+                    new UIElement(rowover,"ELE_" + elementsDropped,"radio","Select from the radiobuttons",["Option 1","Option 2","Option 3","Option 4"], true,
+                        [],true,"","","",[]));
+                }
+
+            }
+
+
+            // Formgen sorts the array but lets do it here just in case
+
+            ELEs.sort(function(a, b) {
+                        if (a.elFormRow < b.elFormRow)
+                            return -1;
+                        if (a.elFormRow > b.elFormRow)
+                            return 1;
+                        return 0;
+                        });
+                
+            FG.SetFormDefinitionFromObject(ELEs);
 
 
 
@@ -129,6 +271,8 @@
 
         var ELEs = new Array();
         var FG = new FormGenBS('FormGenBody',ELEs,'Version 1','FG');
+
+        var elementsDropped = 0;
 
         var Rows = 0;
 
