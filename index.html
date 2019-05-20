@@ -54,13 +54,31 @@
 
             if (data==="ButtonTextField")
             {
-                ELEs.push(
-                    new UIElement(1,"1","text","The Label for this piece of input",[],true,
+
+                var rowover = FG.GetRowAtYCoordinate(ev.clientY);
+
+                if (rowover==0)
+                {
+                    // New Row
+
+                    Rows += 1;
+
+                    ELEs.push(
+                    new UIElement(Rows,"1","text","The Label for this piece of input",[],true,
                     [],true,"","font-size:16px;font-weight:bold","background-color: lavender",[]));
 
+
+                }
+                else
+                {
+                    ELEs.push(
+                    new UIElement(rowover,"1","text","The Label for this piece of input",[],true,
+                    [],true,"","font-size:16px;font-weight:bold","background-color: lavender",[]));
+                }
+                
                 FG.SetFormDefinitionFromObject(ELEs);
 
-                var foo = window.getComputedStyle(document.getElementById("FormGenBody"), null); // REDRAW
+                //var foo = window.getComputedStyle(document.getElementById("FormGenBody"), null); // REDRAW
 
             }
 
@@ -111,6 +129,8 @@
 
         var ELEs = new Array();
         var FG = new FormGenBS('FormGenBody',ELEs,'Version 1','FG');
+
+        var Rows = 0;
 
         
 

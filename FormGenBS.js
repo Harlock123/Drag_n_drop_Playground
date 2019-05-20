@@ -818,16 +818,30 @@ var FormGenBS = /** @class */ (function () {
     FormGenBS.prototype.GetFormDataAsString = function () {
         return JSON.stringify(this.GetFormData());
     };
+    /**
+     * GetFormDataAsString
+     */
     FormGenBS.prototype.GetFormDefinition = function () {
         return this.theUIElements;
     };
+    /**
+     * GetFormDataAsString
+     */
     FormGenBS.prototype.GetFormDefinitionAsString = function () {
         return JSON.stringify(this.GetFormDefinition());
     };
+    /**
+     * GetFormDataAsString
+     * TheFormDefinitionAsString: string
+     */
     FormGenBS.prototype.SetFormDefinition = function (TheFormDefinitionAsString) {
         var Self = this;
         Self.HydrateForm(JSON.parse(TheFormDefinitionAsString));
     };
+    /**
+     * GetFormDataAsString
+     * UIElementArray: UIElement[]
+     */
     FormGenBS.prototype.SetFormDefinitionFromObject = function (UIElementArray) {
         var Self = this;
         Self.HydrateForm(UIElementArray);
@@ -847,6 +861,20 @@ var FormGenBS = /** @class */ (function () {
         };
         xmlhttp.open('GET', webUrl);
         xmlhttp.send();
+    };
+    FormGenBS.prototype.GetRowAtYCoordinate = function (YCord) {
+        var x = document.getElementsByClassName("form-row");
+        var Row = 0;
+        var THeight = 0;
+        var i = 0;
+        for (i = 0; i < x.length; i++) {
+            THeight += x[i].offsetHeight;
+            if (THeight > YCord) {
+                Row = i + 1;
+                break;
+            }
+        }
+        return Row;
     };
     /**
      * SetFormData
