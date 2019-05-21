@@ -224,6 +224,41 @@
                 
             FG.SetFormDefinitionFromObject(ELEs);
 
+            var i =0;
+
+            for(i=0;i<ELEs.length;i++)
+            {
+                var e = ELEs[i];
+
+                document.getElementById("div_"+e.elID).addEventListener('click', function (event) {
+                    // do something
+                    var telem = event.currentTarget.id.slice(4);
+
+                    var TheElementClickedOn = null;
+
+                    var i=0;
+
+                    for(i=0;i<ELEs.length;i++)
+                    {
+                        var e = ELEs[i];
+
+                        if (e.elID === telem)
+                        {
+                            TheElementClickedOn = e;
+                            break;
+                        }
+
+                    }
+
+                    if (TheElementClickedOn!=null)
+                    {
+                        alert("Bring up the Interface to edit a " + TheElementClickedOn.elType + "\nWith the ID of " + TheElementClickedOn.elID );
+                    }
+
+
+                });
+            }
+
 
 
 
