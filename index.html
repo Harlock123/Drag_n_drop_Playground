@@ -22,11 +22,20 @@
         .fixed{
             background-color:rgb(158, 185, 247);
             padding: 4px;
-            width: 200px;
         }
         .flex-item{
             background-color:rgb(196, 196, 197);
             flex-grow: 1;
+        }
+        .iconPadding{
+            padding:4px 4px 4px 4px;
+            margin:4px 2px 4px 2px;
+            border-radius: 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .icon{
+            background-color:rgb(255, 255, 255);
         }
         .buttonPadding{
             padding:4px 4px 4px 4px;
@@ -35,7 +44,53 @@
             background-color:rgb(196, 196, 197);
             text-align: center;
             vertical-align: middle;
+            font-size: 20px;
+            font-weight: bold
         }
+        #editbutton:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #trashbutton:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #movebutton:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #runbutton:hover {
+            background-color:rgb(148, 148, 207);
+        }
+
+        #ButtonTextField:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #ButtonNarrativeField:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #ButtonDateField:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #ButtonDropDownField:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #ButtonRadioButtonField:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #ButtonCheckBoxField:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #ButtonHeaderField:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #ButtonFooterField:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #ButtonLabelField:hover {
+            background-color:rgb(148, 148, 207);
+        }
+        #ButtonLabeledListField:hover {
+            background-color:rgb(148, 148, 207);
+        }
+
         
     </style>
     
@@ -272,7 +327,15 @@
     
     <div class='container col-md-12'>
         
-        <div id="testbuttons" class='fixed'>
+        <div id="testbuttons" class='col-md-2 fixed'>
+            <div class='col-md-12 iconPadding'>
+                    
+                <input id='editbutton' type="image" class='icon' src="Images/Edit.png" alt="Edit" width="50" height="50">
+                <input id='trashbutton' type="image" class='icon' src="Images/Trash.png" alt="Trash" width="50" height="50">
+                <input id='movebutton' type="image" class='icon' src="Images/Move.png" alt="Move" width="50" height="50">
+                <input id='runbutton' type="image" class='icon' src="Images/Run.png" alt="Run" width="50" height="50">
+
+            </div>
             <div id="ButtonTextField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Text Field</div>
             <div id="ButtonNarrativeField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Narrative Field</div>
             <div id="ButtonDateField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Date Field</div>
