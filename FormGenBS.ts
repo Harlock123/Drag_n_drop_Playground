@@ -5,6 +5,7 @@ export class FormGenBS {
     private theUIElements: UIElement[];
     private theVersionString: string = "";
     private JSOBJECTNAME: string = "";
+    private EVENTWIREUP: boolean = false;
     private DOINTERACTION;
 
     constructor(DomElementID: string, UIElements: UIElement[], VersionString: string, JSobjectName: string) {
@@ -23,8 +24,18 @@ export class FormGenBS {
         this.HydrateForm(UIElements);
 
         this.DOINTERACTION = function (e: any) { this.DoFormGenInteraction(e); }
+    }
 
+    public ActivateEventWireUP()
+    {
+        this.EVENTWIREUP = true;
+        this.HydrateForm(this.theUIElements);
+    }
 
+    public DeactivateEventWireUP()
+    {
+        this.EVENTWIREUP = false;
+        this.HydrateForm(this.theUIElements);
     }
 
     private HydrateForm(UIElements: UIElement[]) {
@@ -188,6 +199,17 @@ export class FormGenBS {
 
             innerhtml += '<div class="form-row" style="' + FROWTAGS[CURROW - 1] + '" >';
 
+            var EVNTWIREUP = "";
+
+            if (this.EVENTWIREUP)
+            {
+                EVNTWIREUP = " onclick='doFormGenClickHandleing(event)' ";
+            }
+            else
+            {
+                EVNTWIREUP = "";
+            }
+
             for (let THEEL of UIElements) {
 
                 if (THEEL.elFormRow == CURROW) { // We have an element that is going into the curent row
@@ -222,7 +244,7 @@ export class FormGenBS {
 
                             if (THEEL.elRequired)
                             {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>'; 
@@ -235,7 +257,7 @@ export class FormGenBS {
                             }
                             else
                             {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>'; 
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '" >';
@@ -291,7 +313,7 @@ export class FormGenBS {
 
                             if (THEEL.elRequired)
                             {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>'; 
@@ -304,7 +326,7 @@ export class FormGenBS {
                             }
                             else
                             {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>'; 
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '" >';
@@ -360,7 +382,7 @@ export class FormGenBS {
 
                             if (THEEL.elRequired)
                             {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>'; 
@@ -373,7 +395,7 @@ export class FormGenBS {
                             }
                             else
                             {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>'; 
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '" >';
@@ -431,7 +453,7 @@ export class FormGenBS {
                             if (THEEL.elRequired)
                             {
                                
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>'; 
@@ -444,7 +466,7 @@ export class FormGenBS {
                             }
                             else
                             {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>';
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '"  >';
@@ -513,7 +535,7 @@ export class FormGenBS {
 
                             if (THEEL.elRequired)
                             {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>'; 
@@ -526,7 +548,7 @@ export class FormGenBS {
                             }
                             else
                             {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>'; 
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '" >';
@@ -599,7 +621,7 @@ export class FormGenBS {
 
                             if (THEEL.elRequired)
                             {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>'; 
@@ -612,7 +634,7 @@ export class FormGenBS {
                             }
                             else
                             {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>';
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '" >';

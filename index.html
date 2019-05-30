@@ -18,7 +18,34 @@
         }
         
         function drag(ev) {
+            ClearSelected();
             ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function SetMode(ev) {
+            ClearSelected();
+            var ele = document.getElementById(ev.target.id);
+
+            ele.classList.add("selected");
+
+            editmode = "";
+
+            if (ev.target.id === "trashbutton")
+            {
+                editmode = "delete";
+            }
+            if (ev.target.id === "editbutton")
+            {
+                editmode = "edit";
+            }
+            if (ev.target.id === "movebutton")
+            {
+                editmode = "move";
+            }
+            if (ev.target.id === "runbutton")
+            {
+                editmode = "run";
+            }
         }
         
         function drop(ev) {
@@ -197,46 +224,9 @@
                 
             FG.SetFormDefinitionFromObject(ELEs);
 
-            var i =0;
-
-            for(i=0;i<ELEs.length;i++)
-            {
-                var e = ELEs[i];
-
-                document.getElementById("div_"+e.elID).addEventListener('click', function (event) {
-                    // do something
-                    var telem = event.currentTarget.id.slice(4);
-
-                    var TheElementClickedOn = null;
-
-                    var i=0;
-
-                    for(i=0;i<ELEs.length;i++)
-                    {
-                        var e = ELEs[i];
-
-                        if (e.elID === telem)
-                        {
-                            TheElementClickedOn = e;
-                            break;
-                        }
-
-                    }
-
-                    if (TheElementClickedOn!=null)
-                    {
-                        alert("Bring up the Interface to edit a " + TheElementClickedOn.elType + "\nWith the ID of " + TheElementClickedOn.elID );
-                    }
-
-
-                });
-            }
-
-
-
-
-            //ev.target.appendChild(document.getElementById(data));
+            
         }
+
     </script>
     
 </head>
@@ -248,10 +238,10 @@
         <div id="testbuttons" class='col-md-2 fixed'>
             <div class='col-md-12 iconPadding'>
                     
-                <input id='editbutton' type="image" class='icon' src="Images/Edit.png" alt="Edit" width="50" height="50">
-                <input id='trashbutton' type="image" class='icon' src="Images/Trash.png" alt="Trash" width="50" height="50">
-                <input id='movebutton' type="image" class='icon' src="Images/Move.png" alt="Move" width="50" height="50">
-                <input id='runbutton' type="image" class='icon' src="Images/Run.png" alt="Run" width="50" height="50">
+                <input id='editbutton' type="image" class='icon' src="Images/Edit.png" onclick="SetMode(event)" alt="Edit" width="50" height="50">
+                <input id='trashbutton' type="image" class='icon' src="Images/Trash.png" onclick="SetMode(event)" alt="Trash" width="50" height="50">
+                <input id='movebutton' type="image" class='icon' src="Images/Move.png" onclick="SetMode(event)" alt="Move" width="50" height="50">
+                <input id='runbutton' type="image" class='icon' src="Images/Run.png" onclick="SetMode(event)" alt="Run" width="50" height="50">
 
             </div>
             <div id="ButtonTextField" class="buttonPadding" draggable="true" ondragstart="drag(event)">Text Field</div>
@@ -288,17 +278,89 @@
         var ELEs = new Array();
         var FG = new FormGenBS('FormGenBody',ELEs,'Version 1','FG');
 
+        FG.ActivateEventWireUP();
+
         var elementsDropped = 0;
+
+        var editmode = "";
 
         var Rows = 0;
 
-        
+        function ClearSelected()
+        {
+            var ele1 = document.getElementById("editbutton");
+            var ele2 = document.getElementById("trashbutton");
+            var ele3 = document.getElementById("movebutton");
+            var ele4 = document.getElementById("runbutton");
 
+            ele1.classList.remove("selected");
+            ele2.classList.remove("selected");
+            ele3.classList.remove("selected");
+            ele4.classList.remove("selected");
 
+            editmode = "";
 
-        
+        }
 
-        
+        function doFormGenClickHandleing(event)
+        {
+            // do something
+            var telem = event.currentTarget.id.slice(4);
+
+            var TheElementClickedOn = null;
+
+            var i = 0;
+
+            for (i = 0; i < ELEs.length; i++) {
+                var e = ELEs[i];
+
+                if (e.elID === telem) {
+                    TheElementClickedOn = e;
+                    break;
+                }
+
+            }
+
+            if (TheElementClickedOn != null) {
+
+                if (editmode === "edit") {
+                    alert("Bring up the Interface to edit a " + TheElementClickedOn.elType + "\nWith the ID of " + TheElementClickedOn.elID);
+                }
+                if (editmode === "delete") {
+
+                    var tempELEs = [];
+
+                    for (i = 0; i < ELEs.length; i++) {
+                        var e = ELEs[i];
+
+                        if (TheElementClickedOn.elID === e.elID) {
+                            // I will be it to be removed
+
+                            var ii = 0;
+
+                            for (ii = 0; ii < ELEs.length; ii++) {
+                                var ee = ELEs[ii];
+                                if (TheElementClickedOn.elID !== ee.elID) {
+                                    tempELEs.push(ee);
+                                }
+                            }
+
+                            break;
+                        }
+                    }
+
+                    ELEs = tempELEs;
+
+                    tempELEs = null;
+
+                    FG.SetFormDefinitionFromObject(ELEs);
+
+                }
+
+            }
+
+        }
+
     </script>
     
     

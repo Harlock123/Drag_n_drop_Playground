@@ -5,6 +5,7 @@ var FormGenBS = /** @class */ (function () {
         this.theUIInteractions = [];
         this.theVersionString = "";
         this.JSOBJECTNAME = "";
+        this.EVENTWIREUP = false;
         // set the form version here
         this.theVersionString = VersionString;
         // DomElementID will be the container for all the inserted form content
@@ -15,6 +16,14 @@ var FormGenBS = /** @class */ (function () {
         this.HydrateForm(UIElements);
         this.DOINTERACTION = function (e) { this.DoFormGenInteraction(e); };
     }
+    FormGenBS.prototype.ActivateEventWireUP = function () {
+        this.EVENTWIREUP = true;
+        this.HydrateForm(this.theUIElements);
+    };
+    FormGenBS.prototype.DeactivateEventWireUP = function () {
+        this.EVENTWIREUP = false;
+        this.HydrateForm(this.theUIElements);
+    };
     FormGenBS.prototype.HydrateForm = function (UIElements) {
         // sort the array first by the rows
         UIElements.sort(function (a, b) {
@@ -161,6 +170,13 @@ var FormGenBS = /** @class */ (function () {
             var CBTAG = BOOTSTRAPTAGS_1[_j];
             CURROW += 1;
             innerhtml += '<div class="form-row" style="' + FROWTAGS[CURROW - 1] + '" >';
+            var EVNTWIREUP = "";
+            if (this.EVENTWIREUP) {
+                EVNTWIREUP = " onclick='doFormGenClickHandleing(event)' ";
+            }
+            else {
+                EVNTWIREUP = "";
+            }
             for (var _k = 0, UIElements_9 = UIElements; _k < UIElements_9.length; _k++) {
                 var THEEL = UIElements_9[_k];
                 if (THEEL.elFormRow == CURROW) { // We have an element that is going into the curent row
@@ -186,7 +202,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '<div class="' + CBTAG + '" >';
                             }
                             if (THEEL.elRequired) {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>';
@@ -197,7 +213,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '</table>';
                             }
                             else {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>';
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '" >';
@@ -242,7 +258,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '<div class="' + CBTAG + '" >';
                             }
                             if (THEEL.elRequired) {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>';
@@ -253,7 +269,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '</table>';
                             }
                             else {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>';
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '" >';
@@ -298,7 +314,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '<div class="' + CBTAG + '" >';
                             }
                             if (THEEL.elRequired) {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>';
@@ -309,7 +325,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '</table>';
                             }
                             else {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>';
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '" >';
@@ -354,7 +370,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '<div class="' + CBTAG + '" >';
                             }
                             if (THEEL.elRequired) {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>';
@@ -365,7 +381,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '</table>';
                             }
                             else {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>';
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '"  >';
@@ -423,7 +439,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '<div class="' + CBTAG + '" >';
                             }
                             if (THEEL.elRequired) {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>';
@@ -434,7 +450,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '</table>';
                             }
                             else {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>';
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '" >';
@@ -492,7 +508,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '<div class="' + CBTAG + '" >';
                             }
                             if (THEEL.elRequired) {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td valign="top" class="text-red"> * </td>';
                                 innerhtml += '<td>';
@@ -503,7 +519,7 @@ var FormGenBS = /** @class */ (function () {
                                 innerhtml += '</table>';
                             }
                             else {
-                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + ' >';
+                                innerhtml += '<div class="form-group" id="' + 'div_' + THEEL.elID + '" ' + VIS + STY + EVNTWIREUP + ' >';
                                 innerhtml += '<table>';
                                 innerhtml += '<td>';
                                 innerhtml += '<label for="' + THEEL.elID + '" style="' + THEEL.elLabelStyle + '" >';
